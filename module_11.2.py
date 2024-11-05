@@ -1,9 +1,10 @@
 def introspection_info(obj):
     obj_type = type(obj).__name__
     print(f'Type: {obj_type}')
-    attributes_obj = dir(obj)
+    # attributes_obj = dir(obj)
+    attributes_obj = [attribute for attribute in dir(obj) if not callable(getattr(obj, attribute))]
     print(f'Attributes: {attributes_obj}')
-    methods = [method for method in attributes_obj if callable(getattr(obj, method))]
+    methods = [method for method in dir(obj) if callable(getattr(obj, method))]
     print(f'Methods: {methods}')
     module = obj.__class__.__module__
     return f'Module: {module}'
